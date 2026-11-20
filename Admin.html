@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,658 +18,154 @@
  --text:#f5f5f5;
  --muted:#888;
 }
-
-* {
- box-sizing:border-box;
- margin:0;
- padding:0;
-}
-
-body {
- background:var(--bg);
- color:var(--text);
- font-family:Poppins,sans-serif;
- min-height:100vh;
-}
-
-button,input,select,textarea {
- font:inherit;
-}
-
-button {
- cursor:pointer;
-}
-
-.layout {
- display:flex;
- min-height:100vh;
-}
-
-.sidebar {
- width:245px;
- flex-shrink:0;
- background:#0d0d0d;
- border-right:1px solid #242424;
- padding:25px 15px;
- position:fixed;
- top:0;
- bottom:0;
- overflow-y:auto;
- z-index:10;
-}
-
-.brand {
- display:flex;
- align-items:center;
- gap:12px;
- padding:5px 10px 30px;
-}
-
-.brand-logo {
- width:42px;
- height:42px;
- display:grid;
- place-items:center;
- border:2px solid var(--orange);
- border-radius:12px;
- color:var(--orange);
- font-family:Orbitron,sans-serif;
- font-weight:900;
- font-size:22px;
- box-shadow:0 0 18px #ff780044;
-}
-
-.brand h2 {
- font-family:Orbitron,sans-serif;
- font-size:15px;
-}
-
-.brand p {
- color:var(--orange);
- font-size:9px;
- letter-spacing:2px;
-}
-
-.nav-label {
- color:#666;
- font-size:9px;
- letter-spacing:2px;
- margin:18px 10px 10px;
-}
-
-.nav-btn {
- display:flex;
- align-items:center;
- gap:12px;
- width:100%;
- padding:13px 12px;
- margin:4px 0;
- border:1px solid transparent;
- background:transparent;
- color:#999;
- border-radius:9px;
- text-align:left;
- font-size:12px;
- transition:.25s;
-}
-
-.nav-btn:hover,.nav-btn.active {
- color:white;
- background:#ff780015;
- border-color:#ff780044;
-}
-
-.nav-btn.active {
- color:var(--orange);
-}
-
-.nav-icon {
- width:20px;
- text-align:center;
- font-size:16px;
-}
-
-.main {
- margin-left:245px;
- width:calc(100% - 245px);
- padding:25px;
-}
-
-.topbar {
- display:flex;
- justify-content:space-between;
- align-items:center;
- gap:15px;
- margin-bottom:28px;
- flex-wrap:wrap;
-}
-
-.topbar h1 {
- font-family:Orbitron,sans-serif;
- font-size:20px;
-}
-
-.topbar p {
- color:var(--muted);
- font-size:11px;
- margin-top:5px;
-}
-
-.top-actions {
- display:flex;
- gap:9px;
- flex-wrap:wrap;
-}
-
-.btn {
- border:1px solid #333;
- background:#191919;
- color:white;
- padding:10px 15px;
- border-radius:8px;
- font-size:11px;
- transition:.2s;
-}
-
-.btn:hover {
- border-color:var(--orange);
- color:var(--orange);
-}
-
-.btn.primary {
- background:var(--orange);
- border-color:var(--orange);
- color:#080808;
- font-weight:800;
-}
-
-.btn.primary:hover {
- background:var(--gold);
-}
-
-.btn.danger {
- color:#ff6868;
- border-color:#662c2c;
-}
-
-.section {
- display:none;
-}
-
-.section.active {
- display:block;
- animation:fade .35s ease;
-}
-
-@keyframes fade {
- from {opacity:0;transform:translateY(8px)}
- to {opacity:1;transform:translateY(0)}
-}
-
-.section-heading {
- margin-bottom:20px;
-}
-
-.section-heading h2 {
- font-family:Orbitron,sans-serif;
- font-size:17px;
-}
-
-.section-heading p {
- color:var(--muted);
- font-size:11px;
- margin-top:6px;
-}
-
-.stats {
- display:grid;
- grid-template-columns:repeat(3,minmax(0,1fr));
- gap:15px;
- margin-bottom:25px;
-}
-
-.stat-card,.card {
- background:var(--panel);
- border:1px solid #262626;
- border-radius:12px;
- padding:19px;
-}
-
-.stat-card p {
- color:#888;
- font-size:10px;
- letter-spacing:1px;
-}
-
-.stat-card h2 {
- font-family:Orbitron,sans-serif;
- color:var(--orange);
- font-size:25px;
- margin-top:12px;
-}
-
-.card {
- margin-bottom:17px;
-}
-
-.card-title {
- font-size:13px;
- font-weight:700;
- margin-bottom:16px;
-}
-
-.card-subtitle {
- font-size:10px;
- color:var(--muted);
- margin-top:-10px;
- margin-bottom:15px;
-}
-
-.form-grid {
- display:grid;
- grid-template-columns:repeat(2,minmax(0,1fr));
- gap:15px;
-}
-
-.field {
- display:flex;
- flex-direction:column;
- gap:7px;
- margin-bottom:14px;
-}
-
-.field label {
- color:#aaa;
- font-size:10px;
- letter-spacing:.6px;
-}
-
-.field input,.field select,.field textarea {
- width:100%;
- background:#090909;
- color:white;
- border:1px solid #303030;
- border-radius:7px;
- padding:11px;
- outline:none;
- font-size:12px;
-}
-
-.field input:focus,.field select:focus,.field textarea:focus {
- border-color:var(--orange);
-}
-
-.field textarea {
- min-height:85px;
- resize:vertical;
-}
-
-.field input[type="color"] {
- height:43px;
- padding:4px;
-}
-
-.field input[type="checkbox"] {
- width:17px;
- height:17px;
- accent-color:var(--orange);
-}
-
-.toggle-row {
- display:flex;
- justify-content:space-between;
- align-items:center;
- gap:12px;
- padding:13px 0;
- border-bottom:1px solid #252525;
-}
-
-.toggle-row:last-child {
- border-bottom:0;
-}
-
-.toggle-row strong {
- font-size:11px;
- display:block;
-}
-
-.toggle-row small {
- color:#777;
- font-size:9px;
-}
-
-.toggle-row input {
- width:18px;
- height:18px;
- accent-color:var(--orange);
-}
-
-.member-row,.rule-row {
- display:flex;
- align-items:center;
- justify-content:space-between;
- gap:12px;
- padding:13px;
- background:#0b0b0b;
- border:1px solid #292929;
- border-radius:8px;
- margin-bottom:9px;
-}
-
-.member-row strong,.rule-row strong {
- font-size:11px;
- display:block;
-}
-
-.member-row small,.rule-row small {
- color:var(--orange);
- font-size:9px;
-}
-
-.row-actions {
- display:flex;
- gap:6px;
- flex-shrink:0;
-}
-
-.row-actions button {
- background:#1b1b1b;
- border:1px solid #333;
- color:white;
- padding:7px 9px;
- border-radius:6px;
- font-size:10px;
-}
-
-.row-actions button:hover {
- border-color:var(--orange);
- color:var(--orange);
-}
-
-.preview {
- min-height:260px;
- background:#090909;
- border:1px solid #333;
- border-radius:12px;
- padding:25px;
- text-align:center;
- overflow:hidden;
-}
-
-.preview-logo {
- font-family:Orbitron,sans-serif;
- font-size:35px;
- font-weight:900;
- color:var(--orange);
- text-shadow:0 0 20px #ff780066;
-}
-
-.preview h2 {
- font-family:Orbitron,sans-serif;
- font-size:19px;
- margin:15px 0;
-}
-
-.preview p {
- font-size:11px;
- color:#aaa;
- line-height:1.8;
-}
-
-.preview button {
- background:var(--orange);
- border:0;
- border-radius:8px;
- padding:11px 20px;
- margin-top:18px;
- font-size:10px;
- font-weight:800;
-}
-
-.status {
- display:inline-block;
- color:#6dff9c;
- background:#14351f;
- border:1px solid #245e36;
- padding:6px 10px;
- border-radius:20px;
- font-size:9px;
-}
-
-.toast {
- position:fixed;
- bottom:20px;
- right:20px;
- background:#171717;
- color:white;
- border:1px solid var(--orange);
- border-radius:9px;
- padding:13px 18px;
- font-size:11px;
- z-index:10000;
- opacity:0;
- transform:translateY(15px);
- pointer-events:none;
- transition:.3s;
-}
-
-.toast.show {
- opacity:1;
- transform:translateY(0);
-}
-
-.empty {
- color:#777;
- font-size:11px;
- text-align:center;
- padding:20px;
-}
-
-#loginScreen {
- position:fixed;
- inset:0;
- z-index:99999;
- display:flex;
- align-items:center;
- justify-content:center;
- padding:20px;
- background:rgba(0,0,0,.97);
-}
-
-.login-card {
- width:100%;
- max-width:380px;
- padding:30px 25px;
- background:#111;
- border:1px solid #ff780066;
- border-radius:16px;
- box-shadow:0 0 40px #ff780022;
-}
-
-.login-logo {
- width:55px;
- height:55px;
- display:grid;
- place-items:center;
- margin:0 auto 18px;
- border:2px solid var(--orange);
- border-radius:13px;
- color:var(--orange);
- font-family:Orbitron,sans-serif;
- font-size:28px;
- font-weight:900;
-}
-
-.login-card h2 {
- text-align:center;
- font-family:Orbitron,sans-serif;
- font-size:21px;
-}
-
-.login-card > p {
- text-align:center;
- color:var(--orange);
- font-size:9px;
- letter-spacing:2px;
- margin:9px 0 25px;
-}
-
-#loginError {
- color:#ff7777;
- font-size:10px;
- margin-top:12px;
- text-align:center;
-}
-
-.mobile-menu {
- display:none;
-}
-
-@media(max-width:800px) {
- .sidebar {
-  width:220px;
-  transform:translateX(-100%);
-  transition:.3s;
- }
-
- .sidebar.open {
-  transform:translateX(0);
- }
-
- .main {
-  width:100%;
-  margin-left:0;
-  padding:17px;
- }
-
- .mobile-menu {
-  display:inline-block;
- }
-
- .stats {
-  grid-template-columns:1fr;
- }
-
- .form-grid {
-  grid-template-columns:1fr;
- }
-
- .topbar h1 {
-  font-size:16px;
- }
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:Poppins,sans-serif;min-height:100vh}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:245px;flex-shrink:0;background:#0d0d0d;border-right:1px solid #242424;padding:25px 15px;position:fixed;top:0;bottom:0;overflow-y:auto;z-index:10}
+.brand{display:flex;align-items:center;gap:12px;padding:5px 10px 30px}
+.brand-logo{width:42px;height:42px;display:grid;place-items:center;border:2px solid var(--orange);border-radius:12px;color:var(--orange);font-family:Orbitron,sans-serif;font-weight:900;font-size:22px;box-shadow:0 0 18px #ff780044}
+.brand h2{font-family:Orbitron,sans-serif;font-size:15px}
+.brand p{color:var(--orange);font-size:9px;letter-spacing:2px}
+.nav-label{color:#666;font-size:9px;letter-spacing:2px;margin:18px 10px 10px}
+.nav-btn{display:flex;align-items:center;gap:12px;width:100%;padding:13px 12px;margin:4px 0;border:1px solid transparent;background:transparent;color:#999;border-radius:9px;text-align:left;font-size:12px;transition:.25s}
+.nav-btn:hover,.nav-btn.active{color:white;background:#ff780015;border-color:#ff780044}
+.nav-btn.active{color:var(--orange)}
+.nav-icon{width:20px;text-align:center;font-size:16px}
+.main{margin-left:245px;width:calc(100% - 245px);padding:25px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:28px;flex-wrap:wrap}
+.topbar h1{font-family:Orbitron,sans-serif;font-size:20px}
+.topbar p{color:var(--muted);font-size:11px;margin-top:5px}
+.top-actions{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+.btn{border:1px solid #333;background:#191919;color:white;padding:10px 15px;border-radius:8px;font-size:11px;transition:.2s}
+.btn:hover{border-color:var(--orange);color:var(--orange)}
+.btn.primary{background:var(--orange);border-color:var(--orange);color:#080808;font-weight:800}
+.btn.primary:hover{background:var(--gold)}
+.btn.danger{color:#ff6868;border-color:#662c2c}
+.btn:disabled{opacity:.6;cursor:not-allowed}
+.section{display:none}
+.section.active{display:block;animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.section-heading{margin-bottom:20px}
+.section-heading h2{font-family:Orbitron,sans-serif;font-size:17px}
+.section-heading p{color:var(--muted);font-size:11px;margin-top:6px}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;margin-bottom:25px}
+.stat-card,.card{background:var(--panel);border:1px solid #262626;border-radius:12px;padding:19px}
+.stat-card p{color:#888;font-size:10px;letter-spacing:1px}
+.stat-card h2{font-family:Orbitron,sans-serif;color:var(--orange);font-size:25px;margin-top:12px}
+.card{margin-bottom:17px}
+.card-title{font-size:13px;font-weight:700;margin-bottom:16px}
+.card-subtitle{font-size:10px;color:var(--muted);margin-top:-10px;margin-bottom:15px}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.field{display:flex;flex-direction:column;gap:7px;margin-bottom:14px}
+.field label{color:#aaa;font-size:10px;letter-spacing:.6px}
+.field input,.field select,.field textarea{width:100%;background:#090909;color:white;border:1px solid #303030;border-radius:7px;padding:11px;outline:none;font-size:12px}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--orange)}
+.field textarea{min-height:85px;resize:vertical}
+.field input[type="color"]{height:43px;padding:4px}
+.field input[type="checkbox"]{width:17px;height:17px;accent-color:var(--orange)}
+.field input[type="range"]{accent-color:var(--orange)}
+.toggle-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid #252525}
+.toggle-row:last-child{border-bottom:0}
+.toggle-row strong{font-size:11px;display:block}
+.toggle-row small{color:#777;font-size:9px}
+.toggle-row input{width:18px;height:18px;accent-color:var(--orange)}
+.member-row,.rule-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px;background:#0b0b0b;border:1px solid #292929;border-radius:8px;margin-bottom:9px}
+.member-row strong,.rule-row strong{font-size:11px;display:block;overflow-wrap:anywhere}
+.member-row small,.rule-row small{color:var(--orange);font-size:9px}
+.row-actions{display:flex;gap:6px;flex-shrink:0}
+.row-actions button{background:#1b1b1b;border:1px solid #333;color:white;padding:7px 9px;border-radius:6px;font-size:10px}
+.row-actions button:hover{border-color:var(--orange);color:var(--orange)}
+.preview{min-height:260px;background:#090909;border:1px solid #333;border-radius:12px;padding:25px;text-align:center;overflow:hidden}
+.preview-logo{font-family:Orbitron,sans-serif;font-size:35px;font-weight:900;color:var(--orange);text-shadow:0 0 20px #ff780066}
+.preview h2{font-family:Orbitron,sans-serif;font-size:19px;margin:15px 0}
+.preview p{font-size:11px;color:#aaa;line-height:1.8}
+.preview button{background:var(--orange);border:0;border-radius:8px;padding:11px 20px;margin-top:18px;font-size:10px;font-weight:800}
+.status{display:inline-block;color:#6dff9c;background:#14351f;border:1px solid #245e36;padding:6px 10px;border-radius:20px;font-size:9px}
+.toast{position:fixed;bottom:20px;right:20px;max-width:calc(100% - 40px);background:#171717;color:white;border:1px solid var(--orange);border-radius:9px;padding:13px 18px;font-size:11px;z-index:100000;opacity:0;transform:translateY(15px);pointer-events:none;transition:.3s}
+.toast.show{opacity:1;transform:translateY(0)}
+.empty{color:#777;font-size:11px;text-align:center;padding:20px}
+#loginScreen{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.97)}
+.login-card{width:100%;max-width:380px;padding:30px 25px;background:#111;border:1px solid #ff780066;border-radius:16px;box-shadow:0 0 40px #ff780022}
+.login-logo{width:55px;height:55px;display:grid;place-items:center;margin:0 auto 18px;border:2px solid var(--orange);border-radius:13px;color:var(--orange);font-family:Orbitron,sans-serif;font-size:28px;font-weight:900}
+.login-card h2{text-align:center;font-family:Orbitron,sans-serif;font-size:21px}
+.login-card>p{text-align:center;color:var(--orange);font-size:9px;letter-spacing:2px;margin:9px 0 25px}
+#loginError{color:#ff7777;font-size:10px;margin-top:12px;text-align:center}
+.mobile-menu{display:none}
+
+@media(max-width:800px){
+ .sidebar{width:220px;transform:translateX(-100%);transition:.3s}
+ .sidebar.open{transform:translateX(0)}
+ .main{width:100%;margin-left:0;padding:17px}
+ .mobile-menu{display:inline-block}
+ .stats{grid-template-columns:1fr}
+ .form-grid{grid-template-columns:1fr}
+ .topbar h1{font-size:16px}
 }
 </style>
 </head>
 
 <body>
 
-<!-- LOGIN -->
 <div id="loginScreen">
  <div class="login-card">
   <div class="login-logo">A</div>
   <h2>THE ABYSS</h2>
   <p>ADMIN CONTROL PANEL</p>
-
   <div class="field">
    <label>ADMIN EMAIL</label>
    <input id="adminEmail" type="email" placeholder="Enter your email">
   </div>
-
   <div class="field">
    <label>PASSWORD</label>
    <input id="adminPassword" type="password" placeholder="Enter your password">
   </div>
-
-  <button class="btn primary" id="loginButton" style="width:100%" onclick="loginAdmin()">
-   LOGIN TO ADMIN PANEL
-  </button>
-
+  <button class="btn primary" id="loginButton" style="width:100%" onclick="loginAdmin()">LOGIN TO ADMIN PANEL</button>
   <div id="loginError"></div>
  </div>
 </div>
 
 <div class="layout" id="adminLayout" style="display:none">
-
 <aside class="sidebar" id="sidebar">
  <div class="brand">
   <div class="brand-logo">A</div>
-  <div>
-   <h2>THE ABYSS</h2>
-   <p>ADMIN CONTROL</p>
-  </div>
+  <div><h2>THE ABYSS</h2><p>ADMIN CONTROL</p></div>
  </div>
 
  <div class="nav-label">MAIN MENU</div>
-
- <button class="nav-btn active" onclick="showSection('dashboard',this)">
-  <span class="nav-icon">⌂</span> Dashboard
- </button>
-
- <button class="nav-btn" onclick="showSection('design',this)">
-  <span class="nav-icon">◈</span> Design Editor
- </button>
-
- <button class="nav-btn" onclick="showSection('effects',this)">
-  <span class="nav-icon">✦</span> Effects & Animations
- </button>
+ <button class="nav-btn active" onclick="showSection('dashboard',this)"><span class="nav-icon">⌂</span> Dashboard</button>
+ <button class="nav-btn" onclick="showSection('design',this)"><span class="nav-icon">◈</span> Design Editor</button>
+ <button class="nav-btn" onclick="showSection('effects',this)"><span class="nav-icon">✦</span> Effects & Animations</button>
 
  <div class="nav-label">WEBSITE MANAGEMENT</div>
-
- <button class="nav-btn" onclick="showSection('team',this)">
-  <span class="nav-icon">♟</span> Team Manager
- </button>
-
- <button class="nav-btn" onclick="showSection('rules',this)">
-  <span class="nav-icon">☷</span> Rules Manager
- </button>
-
- <button class="nav-btn" onclick="showSection('content',this)">
-  <span class="nav-icon">✎</span> Content Editor
- </button>
-
- <button class="nav-btn" onclick="showSection('preview',this)">
-  <span class="nav-icon">◉</span> Live Preview
- </button>
+ <button class="nav-btn" onclick="showSection('team',this)"><span class="nav-icon">♟</span> Team Manager</button>
+ <button class="nav-btn" onclick="showSection('rules',this)"><span class="nav-icon">☷</span> Rules Manager</button>
+ <button class="nav-btn" onclick="showSection('content',this)"><span class="nav-icon">✎</span> Content Editor</button>
+ <button class="nav-btn" onclick="showSection('preview',this)"><span class="nav-icon">◉</span> Live Preview</button>
 </aside>
 
 <main class="main">
-
 <header class="topbar">
  <div>
   <button class="btn mobile-menu" onclick="toggleSidebar()">☰</button>
   <h1>ADMIN DASHBOARD</h1>
   <p>Manage your THE ABYSS community website.</p>
  </div>
-
  <div class="top-actions">
-  <span class="status" id="connectionStatus">FIREBASE CONNECTED</span>
+  <span class="status" id="connectionStatus">CONNECTING...</span>
   <button class="btn primary" onclick="saveData()">SAVE CHANGES</button>
   <button class="btn danger" onclick="logoutAdmin()">LOGOUT</button>
  </div>
 </header>
 
-<!-- DASHBOARD -->
 <section class="section active" id="dashboard">
- <div class="section-heading">
-  <h2>WELCOME BACK, ADMIN</h2>
-  <p>Your website management overview.</p>
- </div>
-
+ <div class="section-heading"><h2>WELCOME BACK, ADMIN</h2><p>Your website management overview.</p></div>
  <div class="stats">
-  <div class="stat-card">
-   <p>TEAM MEMBERS</p>
-   <h2 id="teamCount">7</h2>
-  </div>
-  <div class="stat-card">
-   <p>WEBSITE RULES</p>
-   <h2 id="ruleCount">7</h2>
-  </div>
-  <div class="stat-card">
-   <p>SAVED SETTINGS</p>
-   <h2 id="saveStatus">READY</h2>
-  </div>
+  <div class="stat-card"><p>TEAM MEMBERS</p><h2 id="teamCount">7</h2></div>
+  <div class="stat-card"><p>WEBSITE RULES</p><h2 id="ruleCount">7</h2></div>
+  <div class="stat-card"><p>SAVED SETTINGS</p><h2 id="saveStatus">READY</h2></div>
  </div>
-
  <div class="card">
   <div class="card-title">QUICK ACTIONS</div>
   <button class="btn" onclick="showSection('design')">Edit Website Design</button>
@@ -678,341 +173,114 @@ button {
   <button class="btn" onclick="showSection('content')">Edit Homepage</button>
   <button class="btn" onclick="showSection('preview')">Preview Changes</button>
  </div>
-
  <div class="card">
   <div class="card-title">IMPORTANT</div>
-  <p style="font-size:11px;color:#999;line-height:1.9">
-   Changes are saved to Firebase Firestore when you press SAVE CHANGES.
-   Your public website reads the saved settings from Firebase.
-  </p>
+  <p style="font-size:11px;color:#999;line-height:1.9">Changes are saved to Firebase Firestore when you press SAVE CHANGES. Your public website must also be configured to read these saved settings from Firebase.</p>
  </div>
 </section>
 
-<!-- DESIGN -->
 <section class="section" id="design">
- <div class="section-heading">
-  <h2>DESIGN EDITOR</h2>
-  <p>Customize the appearance of your website.</p>
- </div>
-
+ <div class="section-heading"><h2>DESIGN EDITOR</h2><p>Customize the appearance of your website.</p></div>
  <div class="card">
   <div class="card-title">COLOR SETTINGS</div>
   <div class="form-grid">
-   <div class="field">
-    <label>PRIMARY COLOR</label>
-    <input type="color" id="primaryColor" value="#ff7800">
-   </div>
-   <div class="field">
-    <label>SECONDARY COLOR</label>
-    <input type="color" id="secondaryColor" value="#ffb347">
-   </div>
-   <div class="field">
-    <label>BACKGROUND COLOR</label>
-    <input type="color" id="backgroundColor" value="#080808">
-   </div>
-   <div class="field">
-    <label>TEXT COLOR</label>
-    <input type="color" id="textColor" value="#f5f5f5">
-   </div>
+   <div class="field"><label>PRIMARY COLOR</label><input type="color" id="primaryColor" value="#ff7800"></div>
+   <div class="field"><label>SECONDARY COLOR</label><input type="color" id="secondaryColor" value="#ffb347"></div>
+   <div class="field"><label>BACKGROUND COLOR</label><input type="color" id="backgroundColor" value="#080808"></div>
+   <div class="field"><label>TEXT COLOR</label><input type="color" id="textColor" value="#f5f5f5"></div>
   </div>
  </div>
-
  <div class="card">
   <div class="card-title">TYPOGRAPHY</div>
   <div class="form-grid">
-   <div class="field">
-    <label>HEADING FONT</label>
-    <select id="headingFont">
-     <option value="Orbitron">Orbitron</option>
-     <option value="Poppins">Poppins</option>
-     <option value="Arial">Arial</option>
-     <option value="Montserrat">Montserrat</option>
-    </select>
-   </div>
-   <div class="field">
-    <label>BODY FONT</label>
-    <select id="bodyFont">
-     <option value="Poppins">Poppins</option>
-     <option value="Arial">Arial</option>
-     <option value="Montserrat">Montserrat</option>
-     <option value="Orbitron">Orbitron</option>
-    </select>
-   </div>
-   <div class="field">
-    <label>HEADING SIZE</label>
-    <select id="headingSize">
-     <option value="32px">Small</option>
-     <option value="42px" selected>Medium</option>
-     <option value="52px">Large</option>
-     <option value="62px">Extra Large</option>
-    </select>
-   </div>
+   <div class="field"><label>HEADING FONT</label><select id="headingFont"><option value="Orbitron">Orbitron</option><option value="Poppins">Poppins</option><option value="Arial">Arial</option><option value="Montserrat">Montserrat</option></select></div>
+   <div class="field"><label>BODY FONT</label><select id="bodyFont"><option value="Poppins">Poppins</option><option value="Arial">Arial</option><option value="Montserrat">Montserrat</option><option value="Orbitron">Orbitron</option></select></div>
+   <div class="field"><label>HEADING SIZE</label><select id="headingSize"><option value="32px">Small</option><option value="42px" selected>Medium</option><option value="52px">Large</option><option value="62px">Extra Large</option></select></div>
   </div>
  </div>
-
  <div class="card">
   <div class="card-title">BACKGROUND & BUTTONS</div>
-
-  <div class="field">
-   <label>BACKGROUND IMAGE (TEMPORARY PREVIEW)</label>
-   <input type="file" id="backgroundUpload" accept="image/*">
-  </div>
-
-  <div class="field">
-   <label>BACKGROUND OVERLAY OPACITY</label>
-   <input type="range" id="overlayOpacity" min="0" max="100" value="65">
-  </div>
-
+  <div class="field"><label>BACKGROUND IMAGE (TEMPORARY PREVIEW)</label><input type="file" id="backgroundUpload" accept="image/*"></div>
+  <div class="field"><label>BACKGROUND OVERLAY OPACITY</label><input type="range" id="overlayOpacity" min="0" max="100" value="65"></div>
   <div class="form-grid">
-   <div class="field">
-    <label>BUTTON CORNER RADIUS</label>
-    <select id="buttonRadius">
-     <option value="0px">Square</option>
-     <option value="8px" selected>Rounded</option>
-     <option value="20px">Very Rounded</option>
-     <option value="50px">Pill</option>
-    </select>
-   </div>
-
-   <div class="field">
-    <label>BUTTON STYLE</label>
-    <select id="buttonStyle">
-     <option value="solid">Solid</option>
-     <option value="outline">Outline</option>
-     <option value="glow">Glow</option>
-    </select>
-   </div>
+   <div class="field"><label>BUTTON CORNER RADIUS</label><select id="buttonRadius"><option value="0px">Square</option><option value="8px" selected>Rounded</option><option value="20px">Very Rounded</option><option value="50px">Pill</option></select></div>
+   <div class="field"><label>BUTTON STYLE</label><select id="buttonStyle"><option value="solid">Solid</option><option value="outline">Outline</option><option value="glow">Glow</option></select></div>
   </div>
  </div>
 </section>
 
-<!-- EFFECTS -->
 <section class="section" id="effects">
- <div class="section-heading">
-  <h2>EFFECTS & ANIMATIONS</h2>
-  <p>Control the motion and visual effects.</p>
- </div>
-
+ <div class="section-heading"><h2>EFFECTS & ANIMATIONS</h2><p>Control the motion and visual effects.</p></div>
  <div class="card">
   <div class="card-title">BACKGROUND EFFECTS</div>
-
-  <div class="toggle-row">
-   <div><strong>Ambient Glow</strong><small>Moving background glow</small></div>
-   <input type="checkbox" id="ambientToggle" checked>
-  </div>
-
-  <div class="toggle-row">
-   <div><strong>Floating Particles</strong><small>Background particle effect</small></div>
-   <input type="checkbox" id="particlesToggle" checked>
-  </div>
-
-  <div class="toggle-row">
-   <div><strong>Gradient Background</strong><small>Enable gradient background</small></div>
-   <input type="checkbox" id="gradientToggle" checked>
-  </div>
+  <div class="toggle-row"><div><strong>Ambient Glow</strong><small>Moving background glow</small></div><input type="checkbox" id="ambientToggle" checked></div>
+  <div class="toggle-row"><div><strong>Floating Particles</strong><small>Background particle effect</small></div><input type="checkbox" id="particlesToggle" checked></div>
+  <div class="toggle-row"><div><strong>Gradient Background</strong><small>Enable gradient background</small></div><input type="checkbox" id="gradientToggle" checked></div>
  </div>
-
  <div class="card">
   <div class="card-title">LOGO ANIMATION</div>
-
-  <div class="field">
-   <label>LOGO ANIMATION STYLE</label>
-   <select id="logoAnimation">
-    <option value="glow">Glow Pulse</option>
-    <option value="rotate">Rotate</option>
-    <option value="bounce">Bounce</option>
-    <option value="none">None</option>
-   </select>
-  </div>
-
-  <div class="toggle-row">
-   <div><strong>Logo Glow</strong><small>Orange logo glow effect</small></div>
-   <input type="checkbox" id="logoGlow" checked>
-  </div>
+  <div class="field"><label>LOGO ANIMATION STYLE</label><select id="logoAnimation"><option value="glow">Glow Pulse</option><option value="rotate">Rotate</option><option value="bounce">Bounce</option><option value="none">None</option></select></div>
+  <div class="toggle-row"><div><strong>Logo Glow</strong><small>Orange logo glow effect</small></div><input type="checkbox" id="logoGlow" checked></div>
  </div>
-
  <div class="card">
   <div class="card-title">PAGE ANIMATION</div>
-
-  <div class="field">
-   <label>PAGE TRANSITION</label>
-   <select id="pageAnimation">
-    <option value="fade">Fade</option>
-    <option value="slide">Slide</option>
-    <option value="zoom">Zoom</option>
-    <option value="none">None</option>
-   </select>
-  </div>
-
-  <div class="field">
-   <label>ANIMATION SPEED</label>
-   <select id="animationSpeed">
-    <option value="0.2s">Fast</option>
-    <option value="0.5s" selected>Normal</option>
-    <option value="0.9s">Slow</option>
-    <option value="1.5s">Very Slow</option>
-   </select>
-  </div>
-
-  <div class="toggle-row">
-   <div><strong>Hover Glow</strong><small>Glow when hovering over elements</small></div>
-   <input type="checkbox" id="hoverGlow" checked>
-  </div>
-
-  <div class="toggle-row">
-   <div><strong>Card Hover</strong><small>Card hover animation</small></div>
-   <input type="checkbox" id="cardHover" checked>
-  </div>
-
-  <div class="toggle-row">
-   <div><strong>Click Sound</strong><small>Enable website click sound</small></div>
-   <input type="checkbox" id="clickSound" checked>
-  </div>
+  <div class="field"><label>PAGE TRANSITION</label><select id="pageAnimation"><option value="fade">Fade</option><option value="slide">Slide</option><option value="zoom">Zoom</option><option value="none">None</option></select></div>
+  <div class="field"><label>ANIMATION SPEED</label><select id="animationSpeed"><option value="0.2s">Fast</option><option value="0.5s" selected>Normal</option><option value="0.9s">Slow</option><option value="1.5s">Very Slow</option></select></div>
+  <div class="toggle-row"><div><strong>Hover Glow</strong><small>Glow when hovering over elements</small></div><input type="checkbox" id="hoverGlow" checked></div>
+  <div class="toggle-row"><div><strong>Card Hover</strong><small>Card hover animation</small></div><input type="checkbox" id="cardHover" checked></div>
+  <div class="toggle-row"><div><strong>Click Sound</strong><small>Enable website click sound</small></div><input type="checkbox" id="clickSound" checked></div>
  </div>
 </section>
 
-<!-- TEAM -->
 <section class="section" id="team">
- <div class="section-heading">
-  <h2>TEAM MANAGER</h2>
-  <p>Add, edit, and remove your team members.</p>
- </div>
-
+ <div class="section-heading"><h2>TEAM MANAGER</h2><p>Add, edit, and remove your team members.</p></div>
  <div class="card">
   <div class="card-title" id="teamFormTitle">ADD TEAM MEMBER</div>
-
   <input type="hidden" id="editTeamIndex" value="-1">
-
   <div class="form-grid">
-   <div class="field">
-    <label>MEMBER NAME</label>
-    <input id="memberName" placeholder="Enter member name">
-   </div>
-
-   <div class="field">
-    <label>ROLE</label>
-    <select id="memberRole">
-     <option value="Founder">Founder</option>
-     <option value="Co-Founder | Creatives">Co-Founder | Creatives</option>
-     <option value="Co-Founder">Co-Founder</option>
-     <option value="Head Admin">Head Admin</option>
-     <option value="Admin">Admin</option>
-     <option value="Creatives">Creatives</option>
-     <option value="Member">Member</option>
-    </select>
-   </div>
+   <div class="field"><label>MEMBER NAME</label><input id="memberName" placeholder="Enter member name"></div>
+   <div class="field"><label>ROLE</label><select id="memberRole"><option value="Founder">Founder</option><option value="Co-Founder | Creatives">Co-Founder | Creatives</option><option value="Co-Founder">Co-Founder</option><option value="Head Admin">Head Admin</option><option value="Admin">Admin</option><option value="Creatives">Creatives</option><option value="Member">Member</option></select></div>
   </div>
-
-  <div class="field">
-   <label>DESCRIPTION</label>
-   <input id="memberDescription" placeholder="Optional description">
-  </div>
-
+  <div class="field"><label>DESCRIPTION</label><input id="memberDescription" placeholder="Optional description"></div>
   <button class="btn primary" onclick="addTeamMember()">SAVE MEMBER</button>
   <button class="btn" onclick="cancelTeamEdit()">CANCEL</button>
  </div>
-
- <div class="card">
-  <div class="card-title">CURRENT TEAM MEMBERS</div>
-  <div id="teamList"></div>
- </div>
+ <div class="card"><div class="card-title">CURRENT TEAM MEMBERS</div><div id="teamList"></div></div>
 </section>
 
-<!-- RULES -->
 <section class="section" id="rules">
- <div class="section-heading">
-  <h2>RULES MANAGER</h2>
-  <p>Manage your community rules.</p>
- </div>
-
+ <div class="section-heading"><h2>RULES MANAGER</h2><p>Manage your community rules.</p></div>
  <div class="card">
   <div class="card-title" id="ruleFormTitle">ADD NEW RULE</div>
-
   <input type="hidden" id="editRuleIndex" value="-1">
-
-  <div class="field">
-   <label>RULE DESCRIPTION</label>
-   <textarea id="ruleText" placeholder="Enter community rule"></textarea>
-  </div>
-
+  <div class="field"><label>RULE DESCRIPTION</label><textarea id="ruleText" placeholder="Enter community rule"></textarea></div>
   <button class="btn primary" onclick="addRule()">SAVE RULE</button>
   <button class="btn" onclick="cancelRuleEdit()">CANCEL</button>
  </div>
-
- <div class="card">
-  <div class="card-title">CURRENT RULES</div>
-  <div id="rulesList"></div>
- </div>
+ <div class="card"><div class="card-title">CURRENT RULES</div><div id="rulesList"></div></div>
 </section>
 
-<!-- CONTENT -->
 <section class="section" id="content">
- <div class="section-heading">
-  <h2>CONTENT EDITOR</h2>
-  <p>Edit the text and links displayed on your website.</p>
- </div>
-
+ <div class="section-heading"><h2>CONTENT EDITOR</h2><p>Edit the text and links displayed on your website.</p></div>
  <div class="card">
   <div class="card-title">HOMEPAGE CONTENT</div>
-
-  <div class="field">
-   <label>HOMEPAGE TAGLINE</label>
-   <input id="homeTagline" value="WELCOME TO THE ABYSS">
-  </div>
-
-  <div class="field">
-   <label>FIRST DESCRIPTION</label>
-   <textarea id="homeDescription"></textarea>
-  </div>
-
-  <div class="field">
-   <label>SECOND DESCRIPTION</label>
-   <textarea id="homeDescription2"></textarea>
-  </div>
-
-  <div class="field">
-   <label>HOMEPAGE SLOGAN</label>
-   <input id="homeSlogan">
-  </div>
-
-  <div class="field">
-   <label>JOIN BUTTON TEXT</label>
-   <input id="joinText" value="JOIN THE ABYSS">
-  </div>
+  <div class="field"><label>HOMEPAGE TAGLINE</label><input id="homeTagline" value="WELCOME TO THE ABYSS"></div>
+  <div class="field"><label>FIRST DESCRIPTION</label><textarea id="homeDescription"></textarea></div>
+  <div class="field"><label>SECOND DESCRIPTION</label><textarea id="homeDescription2"></textarea></div>
+  <div class="field"><label>HOMEPAGE SLOGAN</label><input id="homeSlogan"></div>
+  <div class="field"><label>JOIN BUTTON TEXT</label><input id="joinText" value="JOIN THE ABYSS"></div>
  </div>
-
  <div class="card">
   <div class="card-title">WEBSITE IDENTITY</div>
-
-  <div class="field">
-   <label>WEBSITE NAME</label>
-   <input id="websiteName" value="THE ABYSS">
-  </div>
-
-  <div class="field">
-   <label>COMMUNITY LABEL</label>
-   <input id="communityLabel" value="CLAN COMMUNITY">
-  </div>
-
-  <div class="field">
-   <label>INSTAGRAM LINK</label>
-   <input id="instagramLink" placeholder="https://instagram.com/...">
-  </div>
-
-  <div class="field">
-   <label>FOOTER TEXT</label>
-   <input id="footerText">
-  </div>
+  <div class="field"><label>WEBSITE NAME</label><input id="websiteName" value="THE ABYSS"></div>
+  <div class="field"><label>COMMUNITY LABEL</label><input id="communityLabel" value="CLAN COMMUNITY"></div>
+  <div class="field"><label>INSTAGRAM LINK</label><input id="instagramLink" placeholder="https://instagram.com/..."></div>
+  <div class="field"><label>FOOTER TEXT</label><input id="footerText"></div>
  </div>
 </section>
 
-<!-- PREVIEW -->
 <section class="section" id="preview">
- <div class="section-heading">
-  <h2>LIVE PREVIEW</h2>
-  <p>Preview the settings currently loaded in the editor.</p>
- </div>
-
+ <div class="section-heading"><h2>LIVE PREVIEW</h2><p>Preview the settings currently loaded in the editor.</p></div>
  <div class="card">
   <div class="preview" id="previewScreen">
    <div class="preview-logo">THE ABYSS</div>
@@ -1021,12 +289,7 @@ button {
    <button id="previewButton">JOIN THE ABYSS</button>
   </div>
  </div>
-
- <div class="card">
-  <p style="font-size:11px;color:#aaa;line-height:1.8">
-   This preview shows the editor's current settings. To apply changes to the public website, press SAVE CHANGES.
-  </p>
- </div>
+ <div class="card"><p style="font-size:11px;color:#aaa;line-height:1.8">This preview shows the editor's current settings. To apply changes to the public website, press SAVE CHANGES. Your public website must also be coded to apply the saved Firebase settings.</p></div>
 </section>
 
 </main>
@@ -1050,12 +313,13 @@ const firebaseConfig = {
  appId: "1:822968951842:web:c543c32f622e50b045d67b"
 };
 
-firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+ firebase.initializeApp(firebaseConfig);
+}
 
 const auth = firebase.auth();
 const db = firebase.firestore();
 const publicSettingsRef = db.collection("siteSettings").doc("public");
-
 const $ = id => document.getElementById(id);
 
 /* DEFAULT WEBSITE DATA */
@@ -1093,27 +357,26 @@ function notify(message) {
  const toast = $("toast");
  toast.textContent = message;
  toast.classList.add("show");
-
- setTimeout(() => {
-  toast.classList.remove("show");
- },2500);
+ setTimeout(() => toast.classList.remove("show"),2500);
 }
 
 /* NAVIGATION */
 
 function showSection(id,button) {
- document.querySelectorAll(".section").forEach(section => {
-  section.classList.remove("active");
- });
+ document.querySelectorAll(".section").forEach(section => section.classList.remove("active"));
 
  const target = $(id);
  if (target) target.classList.add("active");
 
- document.querySelectorAll(".nav-btn").forEach(btn => {
-  btn.classList.remove("active");
- });
+ document.querySelectorAll(".nav-btn").forEach(btn => btn.classList.remove("active"));
 
- if (button) button.classList.add("active");
+ if (button) {
+  button.classList.add("active");
+ } else {
+  const matchingButton = [...document.querySelectorAll(".nav-btn")]
+   .find(btn => btn.getAttribute("onclick")?.includes("'" + id + "'"));
+  if (matchingButton) matchingButton.classList.add("active");
+ }
 
  $("sidebar").classList.remove("open");
  updatePreview();
@@ -1154,7 +417,7 @@ async function logoutAdmin() {
   await auth.signOut();
   notify("Logged out.");
  } catch(error) {
-  notify("Logout failed.");
+  notify("Logout failed: " + error.message);
  }
 }
 
@@ -1162,14 +425,13 @@ auth.onAuthStateChanged(async user => {
  if (!user) {
   $("loginScreen").style.display = "flex";
   $("adminLayout").style.display = "none";
+  $("loginButton").disabled = false;
+  $("loginButton").textContent = "LOGIN TO ADMIN PANEL";
   return;
  }
 
  $("loginScreen").style.display = "none";
  $("adminLayout").style.display = "flex";
-
- $("loginButton").disabled = false;
- $("loginButton").textContent = "LOGIN TO ADMIN PANEL";
 
  await loadCloudData();
 });
@@ -1182,9 +444,7 @@ function collectSettings() {
  document.querySelectorAll("input[id],select[id],textarea[id]").forEach(el => {
   if (el.type === "file") return;
 
-  settings[el.id] = el.type === "checkbox"
-   ? el.checked
-   : el.value;
+  settings[el.id] = el.type === "checkbox" ? el.checked : el.value;
  });
 
  return {
@@ -1199,24 +459,18 @@ function collectSettings() {
 function applySavedData(saved) {
  if (!saved) return;
 
- if (Array.isArray(saved.team)) {
-  data.team = saved.team;
- }
-
- if (Array.isArray(saved.rules)) {
-  data.rules = saved.rules;
- }
+ if (Array.isArray(saved.team)) data.team = saved.team;
+ if (Array.isArray(saved.rules)) data.rules = saved.rules;
 
  if (saved.settings) {
   Object.entries(saved.settings).forEach(([id,value]) => {
    const element = $(id);
-
    if (!element || element.type === "file") return;
 
    if (element.type === "checkbox") {
     element.checked = Boolean(value);
    } else {
-    element.value = value;
+    element.value = value ?? "";
    }
   });
  }
@@ -1244,11 +498,13 @@ async function loadCloudData() {
    renderRules();
    updateStats();
    updatePreview();
+   $("saveStatus").textContent = "READY";
    notify("Ready for your first save.");
   }
 
   $("connectionStatus").textContent = "FIREBASE CONNECTED";
  } catch(error) {
+  console.error(error);
   $("connectionStatus").textContent = "LOAD ERROR";
   notify("Could not load settings: " + error.message);
  }
@@ -1263,6 +519,7 @@ async function saveData() {
  }
 
  const saveButton = document.querySelector(".top-actions .btn.primary");
+
  if (saveButton) {
   saveButton.disabled = true;
   saveButton.textContent = "SAVING...";
@@ -1282,12 +539,10 @@ async function saveData() {
 
   $("saveStatus").textContent = "SAVED";
   $("connectionStatus").textContent = "FIREBASE CONNECTED";
-
   notify("Changes saved to Firebase!");
 
  } catch(error) {
   console.error(error);
-
   $("connectionStatus").textContent = "SAVE ERROR";
 
   if (error.code === "permission-denied") {
@@ -1497,13 +752,18 @@ function updateStats() {
 
 $("backgroundUpload").addEventListener("change",event => {
  const file = event.target.files[0];
-
  if (!file) return;
+
+ if (!file.type.startsWith("image/")) {
+  notify("Please select an image file.");
+  return;
+ }
 
  const reader = new FileReader();
 
  reader.onload = () => {
   backgroundPreview = reader.result;
+
   $("previewScreen").style.backgroundImage =
    "linear-gradient(rgba(0,0,0,.65),rgba(0,0,0,.85)),url('" +
    backgroundPreview + "')";
@@ -1517,7 +777,7 @@ $("backgroundUpload").addEventListener("change",event => {
  reader.readAsDataURL(file);
 });
 
-/* LIVE PREVIEW */
+/* LIVE PREVIEW - FIXED */
 
 function updatePreview() {
  const primary = $("primaryColor").value;
@@ -1527,16 +787,23 @@ function updatePreview() {
 
  const preview = $("previewScreen");
 
+ // FIX: Use querySelector for nested CSS selectors.
+ const logo = document.querySelector("#previewScreen .preview-logo");
+ const heading = document.querySelector("#previewScreen h2");
+ const previewButton = $("previewButton");
+
+ if (!preview || !logo || !heading || !previewButton) return;
+
  preview.style.backgroundColor = bg;
  preview.style.color = text;
 
- $("previewScreen .preview-logo").style.color = primary;
- $("previewScreen .preview-logo").style.textShadow =
-  "0 0 20px " + primary;
+ logo.style.color = primary;
+ logo.style.textShadow = "0 0 20px " + primary;
 
- $("previewScreen h2").style.color = secondary;
- $("previewButton").style.background = primary;
- $("previewButton").style.borderRadius = $("buttonRadius").value;
+ heading.style.color = secondary;
+
+ previewButton.style.background = primary;
+ previewButton.style.borderRadius = $("buttonRadius").value;
 
  $("previewTagline").textContent =
   $("homeTagline").value || "WELCOME TO THE ABYSS";
@@ -1544,7 +811,7 @@ function updatePreview() {
  $("previewDescription").textContent =
   $("homeDescription").value || "Your community website preview.";
 
- $("previewButton").textContent =
+ previewButton.textContent =
   $("joinText").value || "JOIN THE ABYSS";
 
  preview.style.fontFamily = $("bodyFont").value;
@@ -1561,13 +828,19 @@ document.querySelectorAll(
  element.addEventListener("change",updatePreview);
 });
 
+/* ENTER KEY LOGIN */
+
+$("adminPassword").addEventListener("keydown",event => {
+ if (event.key === "Enter") loginAdmin();
+});
+
 /* INITIAL RENDER */
 
 renderTeam();
 renderRules();
 updateStats();
 updatePreview();
-</script>
 
+</script>
 </body>
 </html>
