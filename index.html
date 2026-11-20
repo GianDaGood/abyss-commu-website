@@ -1,0 +1,1651 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ABYSS | Clan Community</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --orange:#ff7800;
+    --gold:#ffb347;
+    --site-bg:#080808;
+    --site-text:#ffffff;
+    --heading-font:'Orbitron',sans-serif;
+    --body-font:'Poppins',sans-serif;
+    --heading-size:clamp(14px,3vw,22px);
+    --button-radius:40px;
+    --animation-speed:.65s;
+    --overlay-opacity:.90;
+}
+
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html {
+    scroll-behavior:smooth;
+}
+
+body {
+    font-family:var(--body-font);
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(0,0,0,.96) 0%,
+            rgba(0,0,0,var(--overlay-opacity)) 45%,
+            rgba(0,0,0,.78) 75%,
+            rgba(0,0,0,.88) 100%
+        ),
+        url("abyss-home-bg.jpeg");
+    background-size:cover,cover;
+    background-position:center top,center top;
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+    background-color:var(--site-bg);
+    color:var(--site-text);
+}
+
+/* BACKGROUND ANIMATION */
+
+#ambientGlow {
+    position:fixed;
+    inset:-30%;
+    z-index:0;
+    pointer-events:none;
+    background:
+        radial-gradient(
+            ellipse at 20% 30%,
+            rgba(255,90,0,.13),
+            transparent 35%
+        ),
+        radial-gradient(
+            ellipse at 80% 65%,
+            rgba(255,160,0,.10),
+            transparent 35%
+        );
+    animation:ambientMove 13s ease-in-out infinite alternate;
+}
+
+@keyframes ambientMove {
+    0% {transform:translate(-4%,-2%) scale(1)}
+    100% {transform:translate(5%,4%) scale(1.12)}
+}
+
+#particleLayer {
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    z-index:1;
+    pointer-events:none;
+}
+
+.particle {
+    position:absolute;
+    bottom:-15px;
+    width:3px;
+    height:3px;
+    border-radius:50%;
+    background:#ff8a24;
+    box-shadow:0 0 9px 2px rgba(255,110,0,.55);
+    opacity:0;
+    animation:floatParticle linear infinite;
+}
+
+@keyframes floatParticle {
+    0% {
+        transform:translate3d(0,0,0) scale(.5);
+        opacity:0;
+    }
+    15% {opacity:.8}
+    80% {opacity:.55}
+    100% {
+        transform:translate3d(35px,-110vh,0) scale(1.4);
+        opacity:0;
+    }
+}
+
+#website {
+    position:relative;
+    z-index:2;
+    min-height:100vh;
+    overflow:hidden;
+}
+
+/* NAVBAR */
+
+.navbar {
+    position:sticky;
+    top:8px;
+    z-index:1000;
+    width:calc(100% - 35px);
+    max-width:1100px;
+    min-height:74px;
+    margin:15px auto;
+    padding:8px 20px;
+    border-radius:50px;
+    background:linear-gradient(
+        100deg,
+        #ff4b00 0%,
+        var(--orange) 48%,
+        #ffb000 100%
+    );
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 5px 25px rgba(255,100,0,.18);
+}
+
+.nav-brand {
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:white;
+    min-width:0;
+}
+
+.nav-brand img {
+    width:48px;
+    height:48px;
+    object-fit:contain;
+    background:white;
+    border-radius:50%;
+    padding:5px;
+    animation:logoGlow 2.8s ease-in-out infinite;
+    flex-shrink:0;
+}
+
+@keyframes logoGlow {
+    0%,100% {
+        filter:drop-shadow(0 0 2px rgba(255,255,255,.3));
+        box-shadow:0 0 4px rgba(255,255,255,.2);
+    }
+    50% {
+        filter:drop-shadow(0 0 11px white);
+        box-shadow:0 0 17px rgba(255,255,255,.9);
+    }
+}
+
+.brand-text {
+    display:flex;
+    flex-direction:column;
+    line-height:1.1;
+}
+
+.brand-text strong {
+    font-family:var(--heading-font);
+    font-size:19px;
+    font-weight:900;
+    letter-spacing:.5px;
+}
+
+.brand-text small {
+    font-size:8px;
+    font-weight:800;
+    letter-spacing:.5px;
+}
+
+/* NAVIGATION */
+
+.nav-links {
+    position:relative;
+    display:flex;
+    align-items:center;
+    gap:5px;
+}
+
+.nav-indicator {
+    position:absolute;
+    top:0;
+    left:0;
+    height:100%;
+    width:0;
+    border-radius:25px;
+    background:rgba(0,0,0,.25);
+    box-shadow:0 0 13px rgba(255,255,255,.12);
+    pointer-events:none;
+    opacity:0;
+    transition:
+        transform .4s cubic-bezier(.2,.8,.2,1),
+        width .4s cubic-bezier(.2,.8,.2,1),
+        opacity .25s ease;
+}
+
+.nav-links button {
+    position:relative;
+    z-index:2;
+    padding:9px 12px;
+    background:transparent;
+    border:none;
+    border-radius:25px;
+    color:white;
+    font-size:11px;
+    font-weight:800;
+    font-family:inherit;
+    cursor:pointer;
+    transition:color .3s,text-shadow .3s;
+}
+
+.nav-links button:hover,
+.nav-links button.active {
+    color:white;
+    text-shadow:0 0 9px white;
+}
+
+.nav-links button.active {
+    animation:navPulse 2s ease-in-out infinite;
+}
+
+@keyframes navPulse {
+    0%,100% {text-shadow:0 0 2px rgba(255,255,255,.2)}
+    50% {text-shadow:0 0 10px white}
+}
+
+/* MOBILE MENU */
+
+.menu-btn {
+    display:none;
+    background:transparent;
+    border:none;
+    width:42px;
+    height:42px;
+    cursor:pointer;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:5px;
+}
+
+.menu-btn span {
+    display:block;
+    width:31px;
+    height:5px;
+    background:white;
+    border-radius:10px;
+    transition:.3s;
+}
+
+.menu-btn.open span:nth-child(1) {
+    transform:translateY(10px) rotate(45deg);
+}
+
+.menu-btn.open span:nth-child(2) {
+    opacity:0;
+}
+
+.menu-btn.open span:nth-child(3) {
+    transform:translateY(-10px) rotate(-45deg);
+}
+
+/* PAGES */
+
+.page {
+    display:none;
+    min-height:80vh;
+    padding:65px 20px;
+    background:transparent;
+}
+
+.page.active {
+    display:block;
+    animation:pageReveal var(--animation-speed) cubic-bezier(.2,.7,.2,1) both;
+}
+
+@keyframes pageReveal {
+    from {
+        opacity:0;
+        transform:translateY(22px);
+        filter:blur(7px);
+    }
+    to {
+        opacity:1;
+        transform:translateY(0);
+        filter:blur(0);
+    }
+}
+
+.container {
+    width:100%;
+    max-width:1050px;
+    margin:auto;
+}
+
+/* HOME */
+
+#homePage {
+    min-height:1150px;
+    padding:25px 20px 0;
+    background:transparent;
+}
+
+.home-content {
+    width:100%;
+    max-width:850px;
+    margin:auto;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+}
+
+.home-logo {
+    width:min(70%,320px);
+    height:280px;
+    object-fit:contain;
+    margin:0 auto 22px;
+    filter:drop-shadow(0 0 22px rgba(255,100,0,.3));
+}
+
+.home-tagline {
+    color:var(--orange);
+    font-family:var(--heading-font);
+    font-size:var(--heading-size);
+    font-weight:900;
+    letter-spacing:1px;
+    margin-bottom:20px;
+    line-height:1.5;
+}
+
+.home-description {
+    max-width:750px;
+    color:#eee;
+    font-size:clamp(12px,2vw,17px);
+    line-height:1.8;
+    margin-bottom:18px;
+}
+
+.home-description strong {
+    color:white;
+    font-weight:800;
+}
+
+.home-slogan {
+    color:var(--orange);
+    font-family:var(--heading-font);
+    font-size:clamp(15px,3vw,22px);
+    font-weight:800;
+    margin-top:35px;
+    letter-spacing:1px;
+}
+
+.explore-area {
+    margin-top:145px;
+    margin-bottom:100px;
+}
+
+.explore-btn {
+    display:inline-block;
+    min-width:250px;
+    padding:13px 28px;
+    background:white;
+    color:#080808;
+    border:none;
+    border-radius:var(--button-radius);
+    font-family:var(--body-font);
+    font-size:15px;
+    font-weight:800;
+    letter-spacing:.5px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.explore-btn:hover {
+    background:var(--orange);
+    color:white;
+    transform:translateY(-4px);
+    box-shadow:0 0 25px rgba(255,110,0,.5);
+}
+
+/* TEAM */
+
+#teamPage {
+    background:transparent;
+    min-height:850px;
+    padding:75px 20px 90px;
+}
+
+.team-container {
+    width:100%;
+    max-width:850px;
+    margin:auto;
+    text-align:center;
+}
+
+.team-heading {
+    font-family:var(--heading-font);
+    font-size:clamp(23px,4vw,36px);
+    line-height:1.35;
+    font-weight:900;
+    color:white;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    margin-bottom:12px;
+}
+
+.team-heading span {
+    color:var(--orange);
+}
+
+.team-intro {
+    font-size:clamp(10px,1.5vw,13px);
+    color:#ddd;
+    margin-bottom:65px;
+    line-height:1.7;
+}
+
+.team-list {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:35px;
+}
+
+.team-member {
+    width:100%;
+    text-align:center;
+    transition:.3s ease;
+}
+
+.team-member:hover {
+    transform:scale(1.04);
+}
+
+.team-member h2 {
+    font-family:var(--heading-font);
+    font-size:clamp(22px,3.5vw,31px);
+    font-weight:900;
+    color:var(--orange);
+    letter-spacing:1px;
+    text-shadow:0 0 15px rgba(255,100,0,.18);
+}
+
+.team-member p {
+    color:white;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:1px;
+    margin-top:2px;
+}
+
+.admin-names {
+    font-family:var(--heading-font);
+    font-size:clamp(20px,3vw,29px);
+    font-weight:900;
+    color:var(--orange);
+    letter-spacing:1px;
+    line-height:1.5;
+    text-shadow:0 0 15px rgba(255,100,0,.18);
+}
+
+.admin-role {
+    font-size:11px;
+    color:white;
+    font-weight:700;
+    letter-spacing:1px;
+}
+
+/* RULES */
+
+.section-title {
+    text-align:center;
+    color:var(--orange);
+    font-family:var(--heading-font);
+    font-size:clamp(25px,4vw,38px);
+    letter-spacing:3px;
+}
+
+.section-subtitle {
+    text-align:center;
+    color:#aaa;
+    font-size:12px;
+    margin:12px 0 40px;
+}
+
+.rules-list {
+    max-width:800px;
+    margin:auto;
+    display:grid;
+    gap:13px;
+}
+
+.rule {
+    padding:18px 20px;
+    background:rgba(20,20,20,.82);
+    border:1px solid rgba(255,140,0,.2);
+    border-radius:11px;
+    color:#ddd;
+    font-size:13px;
+    backdrop-filter:blur(4px);
+    transition:.3s ease;
+}
+
+.rule:hover {
+    border-color:rgba(255,140,0,.7);
+    transform:translateX(5px);
+    box-shadow:0 0 16px rgba(255,110,0,.12);
+}
+
+.rule span {
+    color:var(--orange);
+    font-weight:800;
+    margin-right:10px;
+}
+
+/* JOIN PAGE */
+
+#joinPage {
+    min-height:80vh;
+    display:none;
+}
+
+#joinPage.active {
+    display:block;
+}
+
+.join-card {
+    max-width:650px;
+    margin:auto;
+    padding:40px 25px;
+    background:rgba(20,20,20,.82);
+    border:1px solid rgba(255,140,0,.3);
+    border-radius:17px;
+    text-align:center;
+    backdrop-filter:blur(4px);
+    transition:.3s;
+}
+
+.join-card:hover {
+    border-color:rgba(255,140,0,.7);
+    box-shadow:0 0 25px rgba(255,110,0,.12);
+}
+
+.join-card h2 {
+    color:var(--orange);
+    font-family:var(--heading-font);
+}
+
+.join-card p {
+    color:#bbb;
+    font-size:13px;
+    line-height:1.9;
+    margin:20px 0;
+}
+
+.main-btn {
+    display:inline-block;
+    padding:13px 25px;
+    background:linear-gradient(90deg,var(--orange),var(--gold));
+    border:none;
+    border-radius:30px;
+    color:black;
+    font-family:var(--heading-font);
+    font-weight:900;
+    font-size:11px;
+    cursor:pointer;
+    text-decoration:none;
+    transition:.3s;
+}
+
+.main-btn:hover {
+    transform:translateY(-3px);
+    box-shadow:0 0 20px rgba(255,120,0,.4);
+}
+
+/* FOOTER */
+
+footer {
+    padding:25px 15px;
+    text-align:center;
+    color:#eee;
+    font-size:14px;
+    background:transparent;
+}
+
+/* SETTINGS EFFECTS */
+
+body.no-gradient {
+    background-image:url("abyss-home-bg.jpeg");
+}
+
+body.no-gradient #ambientGlow {
+    display:none;
+}
+
+body.no-hover .team-member:hover,
+body.no-hover .rule:hover,
+body.no-hover .join-card:hover,
+body.no-hover .explore-btn:hover,
+body.no-hover .main-btn:hover {
+    transform:none;
+    box-shadow:none;
+}
+
+body.no-glow .nav-brand img {
+    animation:none;
+    filter:none;
+    box-shadow:none;
+}
+
+body.no-glow .home-logo {
+    filter:none;
+}
+
+body.no-hover-glow .rule:hover,
+body.no-hover-glow .join-card:hover {
+    box-shadow:none;
+}
+
+body.button-outline .explore-btn,
+body.button-outline .main-btn {
+    background:transparent;
+    border:2px solid var(--orange);
+    color:var(--orange);
+}
+
+body.button-glow .explore-btn,
+body.button-glow .main-btn {
+    box-shadow:0 0 20px rgba(255,120,0,.55);
+}
+
+body.logo-rotate .nav-brand img,
+body.logo-rotate .home-logo {
+    animation:logoRotate 5s linear infinite;
+}
+
+@keyframes logoRotate {
+    from {transform:rotate(0deg)}
+    to {transform:rotate(360deg)}
+}
+
+body.logo-bounce .nav-brand img,
+body.logo-bounce .home-logo {
+    animation:logoBounce 2s ease-in-out infinite;
+}
+
+@keyframes logoBounce {
+    0%,100% {transform:translateY(0)}
+    50% {transform:translateY(-10px)}
+}
+
+body.page-slide .page.active {
+    animation:pageSlide var(--animation-speed) ease both;
+}
+
+@keyframes pageSlide {
+    from {opacity:0;transform:translateX(30px)}
+    to {opacity:1;transform:translateX(0)}
+}
+
+body.page-zoom .page.active {
+    animation:pageZoom var(--animation-speed) ease both;
+}
+
+@keyframes pageZoom {
+    from {opacity:0;transform:scale(.95)}
+    to {opacity:1;transform:scale(1)}
+}
+
+body.page-none .page.active {
+    animation:none;
+}
+
+body.no-ambient #ambientGlow {
+    display:none;
+}
+
+body.no-particles #particleLayer {
+    display:none;
+}
+
+/* DESKTOP */
+
+@media(min-width:1100px) {
+    .home-content {max-width:900px}
+    #teamPage {padding-top:90px}
+    .team-list {gap:42px}
+}
+
+/* MOBILE */
+
+@media(max-width:750px) {
+    .navbar {
+        width:calc(100% - 35px);
+        min-height:74px;
+        padding:8px 18px;
+    }
+
+    .nav-brand img {
+        width:46px;
+        height:46px;
+    }
+
+    .brand-text strong {font-size:17px}
+    .brand-text small {font-size:7px}
+
+    .menu-btn {display:flex}
+
+    .nav-links {
+        display:none;
+        position:absolute;
+        top:84px;
+        left:0;
+        right:0;
+        padding:15px;
+        background:linear-gradient(120deg,#ff6500,#ffad00);
+        border-radius:18px;
+        flex-direction:column;
+        gap:5px;
+        box-shadow:0 8px 20px rgba(0,0,0,.35);
+    }
+
+    .nav-links.open {display:flex}
+
+    .nav-links button {
+        width:100%;
+        padding:13px;
+        font-size:12px;
+    }
+
+    .nav-indicator {display:none}
+
+    #homePage {
+        min-height:1100px;
+        padding:15px 17px 0;
+    }
+
+    .home-logo {
+        width:min(75%,290px);
+        height:250px;
+        margin:0 auto 20px;
+    }
+
+    .home-tagline {
+        font-size:15px;
+        line-height:1.6;
+        margin-bottom:20px;
+    }
+
+    .home-description {
+        font-size:13px;
+        line-height:1.8;
+        margin-bottom:17px;
+    }
+
+    .home-slogan {
+        font-size:16px;
+        margin-top:30px;
+    }
+
+    .explore-area {
+        margin-top:140px;
+        margin-bottom:100px;
+    }
+
+    .explore-btn {
+        min-width:240px;
+        font-size:14px;
+    }
+
+    #teamPage {
+        padding:55px 17px 75px;
+        min-height:750px;
+    }
+
+    .team-intro {margin-bottom:50px}
+    .team-list {gap:32px}
+    .team-member h2 {font-size:24px}
+    .admin-names {font-size:21px}
+
+    .page:not(#homePage):not(#teamPage) {
+        padding:50px 17px;
+    }
+
+    .join-card {padding:30px 18px}
+}
+
+@media(prefers-reduced-motion:reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration:.01ms !important;
+        animation-iteration-count:1 !important;
+        scroll-behavior:auto !important;
+        transition-duration:.01ms !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="ambientGlow"></div>
+<div id="particleLayer"></div>
+
+<div id="website">
+
+    <!-- NAVIGATION -->
+
+    <nav class="navbar">
+
+        <div class="nav-brand">
+            <img src="abyss-logo.png" alt="ABYSS Logo">
+
+            <div class="brand-text">
+                <strong>THE ABYSS</strong>
+                <small>COMMUNITY • EST. 2026</small>
+            </div>
+        </div>
+
+        <button class="menu-btn"
+                id="menuBtn"
+                type="button"
+                aria-label="Toggle navigation"
+                aria-expanded="false"
+                onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <div class="nav-links" id="navLinks">
+
+            <span class="nav-indicator" id="navIndicator"></span>
+
+            <button type="button" class="active"
+                onclick="showPage('homePage', this)">HOME</button>
+
+            <button type="button"
+                onclick="showPage('teamPage', this)">TEAM</button>
+
+            <button type="button"
+                onclick="showPage('rulesPage', this)">RULES</button>
+
+        </div>
+    </nav>
+
+    <!-- HOME -->
+
+    <section class="page active" id="homePage">
+
+        <div class="home-content">
+
+            <img src="abyss-logo.png"
+                 class="home-logo"
+                 alt="ABYSS Main Logo">
+
+            <h1 class="home-tagline">
+                MORE THAN A COMMUNITY. WE ARE A FORCE.
+            </h1>
+
+            <p class="home-description">
+                <strong>THE ABYSS</strong> is a community built on connection,
+                passion, and growth. What started as a gathering of players
+                became a space where friendships are forged, talents are
+                discovered, and everyone has a place to belong.
+            </p>
+
+            <p class="home-description">
+                Through games, shared experiences, and genuine camaraderie,
+                we rise together, push beyond our limits, and create memories
+                that go beyond the battlefield.
+            </p>
+
+            <h2 class="home-slogan">
+                FROM THE ABYSS, WE RISE.
+            </h2>
+
+            <div class="explore-area">
+                <button class="explore-btn"
+                        type="button"
+                        onclick="showPage('joinPage')">
+                    JOIN THE ABYSS
+                </button>
+            </div>
+
+        </div>
+
+        <footer>
+            © 2026 From the ABYSS, We Rise.
+        </footer>
+
+    </section>
+
+    <!-- TEAM -->
+
+    <section class="page" id="teamPage">
+
+        <div class="team-container">
+
+            <h1 class="team-heading">
+                THE PEOPLE BEHIND<br>
+                <span>THE ABYSS.</span>
+            </h1>
+
+            <p class="team-intro">
+                Leadership that keeps the community alive, united, and moving forward.
+            </p>
+
+            <div class="team-list" id="publicTeamList">
+
+                <div class="team-member">
+                    <h2>REI | LANCE</h2>
+                    <p>FOUNDER</p>
+                </div>
+
+                <div class="team-member">
+                    <h2>JUSTINE</h2>
+                    <p>CO-FOUNDER | CREATIVES</p>
+                </div>
+
+                <div class="team-member">
+                    <h2>JE</h2>
+                    <p>HEAD ADMIN</p>
+                </div>
+
+                <div class="team-member">
+                    <div class="admin-names">ICY | MITZ | AICA</div>
+                    <div class="admin-role">ADMIN</div>
+                </div>
+
+                <div class="team-member">
+                    <div class="admin-names">GIAN</div>
+                    <div class="admin-role">CREATIVES</div>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+    <!-- RULES -->
+
+    <section class="page" id="rulesPage">
+
+        <div class="container">
+
+            <h1 class="section-title">CLAN RULES</h1>
+
+            <p class="section-subtitle">
+                RESPECT THE COMMUNITY
+            </p>
+
+            <div class="rules-list" id="publicRulesList">
+
+                <div class="rule"><span>01.</span> Respect every member of ABYSS.</div>
+                <div class="rule"><span>02.</span> Avoid toxic behavior and unnecessary drama.</div>
+                <div class="rule"><span>03.</span> Respect the Founder, Co-Founder, and Admins.</div>
+                <div class="rule"><span>04.</span> Stay active and participate in clan activities.</div>
+                <div class="rule"><span>05.</span> Support your teammates and practice teamwork.</div>
+                <div class="rule"><span>06.</span> Protect the name and reputation of ABYSS.</div>
+                <div class="rule"><span>07.</span> Treat everyone like family.</div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- JOIN PAGE -->
+
+    <section class="page" id="joinPage">
+
+        <div class="container">
+
+            <h1 class="section-title">JOIN THE ABYSS</h1>
+
+            <p class="section-subtitle">
+                BECOME PART OF OUR FAMILY
+            </p>
+
+            <div class="join-card">
+
+                <h2>READY TO JOIN?</h2>
+
+                <p>
+                    Want to become part of ABYSS?
+                    Join our community, meet new teammates,
+                    and experience the unity of our clan.
+                </p>
+
+                <a class="main-btn"
+                   id="instagramButton"
+                   href="https://www.instagram.com/thee_abyzz?avpt=MXZuYjY5cmJ2enhjMQ=="
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    JOIN OUR COMMUNITY
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+<!-- ORIGINAL WEBSITE FUNCTIONS -->
+
+<script>
+
+/* SOUND EFFECT */
+
+const clickAudio = new Audio("Soundeffect.mp3");
+
+clickAudio.preload = "auto";
+clickAudio.volume = 0.5;
+clickAudio.playbackRate = 1;
+
+const SOUND_MAX_VOLUME = 0.5;
+const FADE_IN_TIME = 100;
+const FADE_OUT_TIME = 180;
+
+let fadeInFrame = null;
+let fadeOutFrame = null;
+
+function playClickSound() {
+
+    if (window.abyssClickSound === false) return;
+
+    if (fadeInFrame) {
+        cancelAnimationFrame(fadeInFrame);
+        fadeInFrame = null;
+    }
+
+    if (fadeOutFrame) {
+        cancelAnimationFrame(fadeOutFrame);
+        fadeOutFrame = null;
+    }
+
+    clickAudio.pause();
+
+    try {
+        clickAudio.currentTime = 0;
+    } catch (error) {}
+
+    clickAudio.playbackRate = 1;
+    clickAudio.volume = 0;
+
+    const playPromise = clickAudio.play();
+
+    if (playPromise) {
+        playPromise.then(() => {
+
+            const startTime = performance.now();
+
+            function fadeIn(now) {
+
+                const progress = Math.min(
+                    (now - startTime) / FADE_IN_TIME,
+                    1
+                );
+
+                clickAudio.volume = SOUND_MAX_VOLUME * progress;
+
+                if (progress < 1) {
+                    fadeInFrame = requestAnimationFrame(fadeIn);
+                } else {
+                    clickAudio.volume = SOUND_MAX_VOLUME;
+                    fadeInFrame = null;
+                }
+            }
+
+            fadeInFrame = requestAnimationFrame(fadeIn);
+
+        }).catch(() => {});
+    }
+}
+
+clickAudio.addEventListener("timeupdate", function() {
+
+    if (!clickAudio.duration || !isFinite(clickAudio.duration)) return;
+
+    const remaining = clickAudio.duration - clickAudio.currentTime;
+
+    if (remaining <= FADE_OUT_TIME / 1000 && remaining > 0) {
+        const progress = remaining / (FADE_OUT_TIME / 1000);
+        clickAudio.volume = SOUND_MAX_VOLUME * Math.max(0,progress);
+    }
+});
+
+clickAudio.addEventListener("ended", function() {
+    clickAudio.volume = SOUND_MAX_VOLUME;
+});
+
+document.addEventListener("click", function(event) {
+    const clickable = event.target.closest("button,a");
+
+    if (clickable) {
+        playClickSound();
+    }
+});
+
+
+/* FLOATING PARTICLES */
+
+const particleLayer = document.getElementById("particleLayer");
+
+for (let i = 0; i < 25; i++) {
+
+    const particle = document.createElement("span");
+
+    particle.className = "particle";
+    particle.style.left = Math.random() * 100 + "%";
+    particle.style.animationDuration = (8 + Math.random() * 13) + "s";
+    particle.style.animationDelay = (Math.random() * 15) + "s";
+
+    const size = (2 + Math.random() * 3) + "px";
+
+    particle.style.width = size;
+    particle.style.height = size;
+
+    particleLayer.appendChild(particle);
+}
+
+
+/* NAVIGATION */
+
+function updateNavIndicator(button) {
+
+    const indicator = document.getElementById("navIndicator");
+
+    if (!button || window.innerWidth <= 750) return;
+
+    indicator.style.width = button.offsetWidth + "px";
+    indicator.style.height = button.offsetHeight + "px";
+
+    indicator.style.transform =
+        `translate(${button.offsetLeft}px, ${button.offsetTop}px)`;
+
+    indicator.style.opacity = "1";
+}
+
+function showPage(pageId,clickedButton) {
+
+    const pages = document.querySelectorAll(".page");
+
+    pages.forEach(function(page) {
+        page.classList.remove("active");
+    });
+
+    const target = document.getElementById(pageId);
+
+    if (target) {
+        target.classList.remove("active");
+        void target.offsetWidth;
+        target.classList.add("active");
+    }
+
+    const buttons = document.querySelectorAll(".nav-links button");
+
+    buttons.forEach(function(button) {
+        button.classList.remove("active");
+    });
+
+    if (clickedButton) {
+        clickedButton.classList.add("active");
+        updateNavIndicator(clickedButton);
+    }
+
+    closeMenu();
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
+
+
+/* MOBILE MENU */
+
+function toggleMenu() {
+
+    const nav = document.getElementById("navLinks");
+    const btn = document.getElementById("menuBtn");
+
+    nav.classList.toggle("open");
+    btn.classList.toggle("open");
+
+    btn.setAttribute(
+        "aria-expanded",
+        nav.classList.contains("open")
+    );
+}
+
+function closeMenu() {
+
+    document.getElementById("navLinks").classList.remove("open");
+    document.getElementById("menuBtn").classList.remove("open");
+
+    document.getElementById("menuBtn").setAttribute(
+        "aria-expanded",
+        "false"
+    );
+}
+
+window.addEventListener("load",function() {
+    const activeButton = document.querySelector(".nav-links button.active");
+    updateNavIndicator(activeButton);
+});
+
+window.addEventListener("resize",function() {
+    const activeButton = document.querySelector(".nav-links button.active");
+    updateNavIndicator(activeButton);
+});
+
+</script>
+
+<!-- FIREBASE PUBLIC WEBSITE CONNECTION -->
+
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+
+<script>
+
+/* FIREBASE CONFIGURATION */
+
+const firebaseConfig = {
+    apiKey: "AIzaSyDTtgY7zeFGv7QQhk-nRYHSlGGQCr-DYrk",
+    authDomain: "abyss-commu-45e25.firebaseapp.com",
+    projectId: "abyss-commu-45e25",
+    storageBucket: "abyss-commu-45e25.firebasestorage.app",
+    messagingSenderId: "822968951842",
+    appId: "1:822968951842:web:c543c32f622e50b045d67b"
+};
+
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
+
+const publicDB = firebase.firestore();
+const publicSettingsRef = publicDB.collection("siteSettings").doc("public");
+
+
+/* SAFE TEXT HELPER */
+
+function setText(selector,value) {
+    const element = document.querySelector(selector);
+
+    if (element && value !== undefined && value !== null) {
+        element.textContent = value;
+    }
+}
+
+
+/* TEAM RENDERING */
+
+function renderPublicTeam(team) {
+
+    const container = document.getElementById("publicTeamList");
+
+    if (!container || !Array.isArray(team)) return;
+
+    container.innerHTML = "";
+
+    if (team.length === 0) {
+        const empty = document.createElement("p");
+        empty.textContent = "Team information coming soon.";
+        empty.style.color = "#aaa";
+        container.appendChild(empty);
+        return;
+    }
+
+    let index = 0;
+
+    while (index < team.length) {
+
+        const member = team[index];
+
+        if (!member || !member.name) {
+            index++;
+            continue;
+        }
+
+        const role = String(member.role || "Member");
+        const normalizedRole = role.toLowerCase();
+
+        /* Group consecutive Admin members together */
+
+        if (normalizedRole === "admin") {
+
+            const adminNames = [];
+
+            while (
+                index < team.length &&
+                team[index] &&
+                String(team[index].role || "").toLowerCase() === "admin"
+            ) {
+                adminNames.push(team[index].name);
+                index++;
+            }
+
+            const card = document.createElement("div");
+            card.className = "team-member";
+
+            const names = document.createElement("div");
+            names.className = "admin-names";
+            names.textContent = adminNames.join(" | ");
+
+            const label = document.createElement("div");
+            label.className = "admin-role";
+            label.textContent = "ADMIN";
+
+            card.append(names,label);
+            container.appendChild(card);
+
+            continue;
+        }
+
+        const card = document.createElement("div");
+        card.className = "team-member";
+
+        const name = document.createElement("h2");
+        name.textContent = member.name;
+
+        const roleLabel = document.createElement("p");
+        roleLabel.textContent = role.toUpperCase();
+
+        card.append(name,roleLabel);
+        container.appendChild(card);
+
+        index++;
+    }
+}
+
+
+/* RULES RENDERING */
+
+function renderPublicRules(rules) {
+
+    const container = document.getElementById("publicRulesList");
+
+    if (!container || !Array.isArray(rules)) return;
+
+    container.innerHTML = "";
+
+    if (rules.length === 0) {
+        const empty = document.createElement("div");
+        empty.className = "rule";
+        empty.textContent = "No rules have been published yet.";
+        container.appendChild(empty);
+        return;
+    }
+
+    rules.forEach((rule,index) => {
+
+        const item = document.createElement("div");
+        item.className = "rule";
+
+        const number = document.createElement("span");
+        number.textContent = String(index + 1).padStart(2,"0") + ".";
+
+        const text = document.createTextNode(" " + String(rule));
+
+        item.append(number,text);
+        container.appendChild(item);
+    });
+}
+
+
+/* APPLY ADMIN CONTENT SETTINGS */
+
+function applyPublicContent(settings) {
+
+    if (!settings) return;
+
+    if (settings.homeTagline !== undefined) {
+        setText(".home-tagline",settings.homeTagline);
+    }
+
+    if (settings.homeDescription !== undefined) {
+        const descriptions = document.querySelectorAll(".home-description");
+
+        if (descriptions[0]) {
+            descriptions[0].textContent = settings.homeDescription;
+        }
+    }
+
+    if (settings.homeDescription2 !== undefined) {
+        const descriptions = document.querySelectorAll(".home-description");
+
+        if (descriptions[1]) {
+            descriptions[1].textContent = settings.homeDescription2;
+        }
+    }
+
+    if (settings.homeSlogan !== undefined) {
+        setText(".home-slogan",settings.homeSlogan);
+    }
+
+    if (settings.joinText !== undefined) {
+        setText(".explore-btn",settings.joinText);
+    }
+
+    if (settings.websiteName !== undefined) {
+        setText(".brand-text strong",settings.websiteName);
+        document.title = settings.websiteName + " | Clan Community";
+    }
+
+    if (settings.communityLabel !== undefined) {
+        setText(".brand-text small",settings.communityLabel);
+    }
+
+    if (settings.instagramLink !== undefined) {
+        const instagram = document.getElementById("instagramButton");
+
+        if (instagram && settings.instagramLink.trim()) {
+            instagram.href = settings.instagramLink.trim();
+        }
+    }
+
+    if (settings.footerText !== undefined) {
+        setText("footer",settings.footerText);
+    }
+}
+
+
+/* APPLY DESIGN SETTINGS */
+
+function applyPublicDesign(settings) {
+
+    if (!settings) return;
+
+    const root = document.documentElement;
+    const body = document.body;
+
+    if (settings.primaryColor) {
+        root.style.setProperty("--orange",settings.primaryColor);
+    }
+
+    if (settings.secondaryColor) {
+        root.style.setProperty("--gold",settings.secondaryColor);
+    }
+
+    if (settings.backgroundColor) {
+        root.style.setProperty("--site-bg",settings.backgroundColor);
+    }
+
+    if (settings.textColor) {
+        root.style.setProperty("--site-text",settings.textColor);
+    }
+
+    if (settings.headingFont) {
+        root.style.setProperty(
+            "--heading-font",
+            "'" + settings.headingFont + "',sans-serif"
+        );
+    }
+
+    if (settings.bodyFont) {
+        root.style.setProperty(
+            "--body-font",
+            "'" + settings.bodyFont + "',sans-serif"
+        );
+    }
+
+    if (settings.headingSize) {
+        root.style.setProperty("--heading-size",settings.headingSize);
+    }
+
+    if (settings.buttonRadius) {
+        root.style.setProperty("--button-radius",settings.buttonRadius);
+    }
+
+    if (settings.overlayOpacity !== undefined) {
+        const opacity = Math.max(
+            0,
+            Math.min(100,Number(settings.overlayOpacity))
+        );
+
+        root.style.setProperty(
+            "--overlay-opacity",
+            String(opacity / 100)
+        );
+    }
+
+    /* Button style */
+
+    body.classList.remove("button-outline","button-glow");
+
+    if (settings.buttonStyle === "outline") {
+        body.classList.add("button-outline");
+    }
+
+    if (settings.buttonStyle === "glow") {
+        body.classList.add("button-glow");
+    }
+
+    /* Gradient */
+
+    body.classList.toggle(
+        "no-gradient",
+        settings.gradientToggle === false
+    );
+
+    /* Logo glow */
+
+    body.classList.toggle(
+        "no-glow",
+        settings.logoGlow === false
+    );
+
+    /* Logo animation */
+
+    body.classList.remove("logo-rotate","logo-bounce");
+
+    if (settings.logoAnimation === "rotate") {
+        body.classList.add("logo-rotate");
+    }
+
+    if (settings.logoAnimation === "bounce") {
+        body.classList.add("logo-bounce");
+    }
+
+    /* Page animation */
+
+    body.classList.remove("page-slide","page-zoom","page-none");
+
+    if (settings.pageAnimation === "slide") {
+        body.classList.add("page-slide");
+    }
+
+    if (settings.pageAnimation === "zoom") {
+        body.classList.add("page-zoom");
+    }
+
+    if (settings.pageAnimation === "none") {
+        body.classList.add("page-none");
+    }
+
+    /* Animation speed */
+
+    if (settings.animationSpeed) {
+        root.style.setProperty(
+            "--animation-speed",
+            settings.animationSpeed
+        );
+    }
+
+    /* Ambient glow */
+
+    body.classList.toggle(
+        "no-ambient",
+        settings.ambientToggle === false
+    );
+
+    /* Particles */
+
+    body.classList.toggle(
+        "no-particles",
+        settings.particlesToggle === false
+    );
+
+    /* Hover effects */
+
+    body.classList.toggle(
+        "no-hover-glow",
+        settings.hoverGlow === false
+    );
+
+    body.classList.toggle(
+        "no-hover",
+        settings.cardHover === false
+    );
+
+    /* Click sound */
+
+    window.abyssClickSound = settings.clickSound !== false;
+}
+
+
+/* APPLY ALL FIREBASE DATA */
+
+function applyWebsiteSettings(data) {
+
+    if (!data) return;
+
+    if (Array.isArray(data.team)) {
+        renderPublicTeam(data.team);
+    }
+
+    if (Array.isArray(data.rules)) {
+        renderPublicRules(data.rules);
+    }
+
+    if (data.settings) {
+        applyPublicContent(data.settings);
+        applyPublicDesign(data.settings);
+    }
+}
+
+
+/* REAL-TIME FIREBASE LISTENER */
+
+publicSettingsRef.onSnapshot(
+    snapshot => {
+
+        if (!snapshot.exists) {
+            console.log("No saved admin settings yet. Using default website content.");
+            return;
+        }
+
+        const savedData = snapshot.data();
+
+        applyWebsiteSettings(savedData);
+
+        console.log("THE ABYSS website settings updated from Firebase.");
+
+    },
+    error => {
+        console.error("Firebase website connection error:",error);
+    }
+);
+
+</script>
+
+</body>
+</html>
